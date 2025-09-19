@@ -1,6 +1,7 @@
 {
-  description = "My first flake, webstorm for WE1
-  nix develop .#webstorm";
+  description = "My first flake
+  webstorm for WE1
+  nix develop .#we1";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -8,7 +9,6 @@
   
     let
       system = "x86_64-linux";
-      # system = "x86_64-linux.default";
       pkgs = import nixpkgs { 
         inherit system;
         config.allowUnfree = true;  # for webstorm
@@ -16,17 +16,65 @@
 
     in
     {      
-      # syntax aus beginner workshop folien
-      devShells.${system} = {
-        # nodejs = pkgs.mkShell {
-        #   packages = [ pkgs.nodejs ];
-        # };
-        webstorm = pkgs.mkShell {
-          packages = [ pkgs.jetbrains.webstorm ];
+      
+      devShells.${system} = rec {
+        # nix develop
+        default = pkgs.mkShell {
+          packages = [ pkgs.nodejs pkgs.jetbrains.webstorm pkgs.firefox ];
         };
+
+        # nix develop .#web (WE1)
+        web = pkgs.mkShell {
+          packages = [ pkgs.jetbrains.webstorm pkgs.firefox pkgs.nodejs ];
+        };
+
+        # nix develop .#dotnet (.NET) 
+        dotnet = pkgs.mkShell {
+          # packages = [ pkgs.jetbrains.rider pkgs.avalonia-ilspy pkgs.dotnetCorePackages.sdk_8_0_3xx-bin ];
+          packages = [ pkgs.jetbrains.rider pkgs.dotnetCorePackages.sdk_8_0_3xx-bin ];
+        };
+
+        # # nix develop .#cplusgcc (C++)
+        # cplusgcc = pkgs.mkShell {
+        #   packages = with pkgs; [ 
+        #     # C++ Compiler is already part of stdenv
+        #     boost
+        #     catch2
+        #     cmake #build
+        #     gcc15 #compiler
+        #     ninja # für ...
+        #      ];
+        # };
+
+        # nix develop .#cplus (C++)
+        cplus = pkgs.mkShell {
+          packages = with pkgs; [ 
+            # C++ Compiler is already part of stdenv
+            boost
+            catch2
+            cmake #build
+            ninja # für ...
+          ];
+        };
+
+        # nix develop .#bsys1
+        cplus = pkgs.mkShell {
+          packages = with pkgs; [ 
+            nasm
+            # clang #C Compiler des LLVM-Projekts: apt install clang
+          ];
+        };
+
       };
+
     };
-# Problem:
-# error: flake 'git+file:///mnt/c/Users/jf/code/wsl/nix?dir=webstorms-flake' does not provide attribute 'packages.x86_64-linux.webstorm', 'legacyPackages.x86_64-linux.webstorm' or 'webstorm'
 # unfree: https://stackoverflow.com/questions/77585228/how-to-allow-unfree-packages-in-nix-for-each-situation-nixos-nix-nix-wit
 }
+
+# C++
+# https://nixcademy.com/posts/cpp-with-nix-in-2023-part-1-shell/
+# $ which c++
+# /nix/store/zlzz2z48s7ry0hkl55xiqp5a73b4mzrg-gcc-wrapper-12.3.0/bin/c++
+
+# $ which cmake
+# /nix/store/5h0akwq4cwlc3yp92i84nfgcxpv5xv79-cmake-3.26.4/bin/cmake
