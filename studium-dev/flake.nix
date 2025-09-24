@@ -34,34 +34,22 @@
           packages = [ pkgs.jetbrains.rider pkgs.dotnetCorePackages.sdk_8_0_3xx-bin ];
         };
 
-        # # nix develop .#cplusgcc (C++)
-        # cplusgcc = pkgs.mkShell {
-        #   packages = with pkgs; [ 
-        #     # C++ Compiler is already part of stdenv
-        #     boost
-        #     catch2
-        #     cmake #build
-        #     gcc15 #compiler
-        #     ninja # für ...
-        #      ];
-        # };
-
         # nix develop .#cplus (C++)
         cplus = pkgs.mkShell {
           packages = with pkgs; [ 
             # C++ Compiler is already part of stdenv
-            boost
-            catch2
+            #boost
+            #catch2
             cmake #build
-            ninja # für ...
+            ninja # für performance?
           ];
         };
 
         # nix develop .#bsys1
-        cplus = pkgs.mkShell {
+        bsys1 = pkgs.mkShell {
           packages = with pkgs; [ 
             nasm
-            # clang #C Compiler des LLVM-Projekts: apt install clang
+            rocmPackages.llvm.clang-unwrapped # clang #C Compiler des LLVM-Projekts: apt install clang
           ];
         };
 
