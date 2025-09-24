@@ -23,10 +23,12 @@
         };
 
         # nix develop .uml
-        web = pkgs.mkShell with pkgs {
-          packages = [ umlet plantuml ];
+        uml = pkgs.mkShell {
+          packages = with pkgs; [ 
+            umlet
+            plantuml 
+          ];
         };
-
 
       };
 

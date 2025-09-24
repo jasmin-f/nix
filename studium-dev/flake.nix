@@ -1,7 +1,5 @@
 {
-  description = "My first flake
-  webstorm for WE1
-  nix develop .#we1";
+  description = "Alle Studium Dev-Environments";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -30,7 +28,6 @@
 
         # nix develop .#dotnet (.NET) 
         dotnet = pkgs.mkShell {
-          # packages = [ pkgs.jetbrains.rider pkgs.avalonia-ilspy pkgs.dotnetCorePackages.sdk_8_0_3xx-bin ];
           packages = [ pkgs.jetbrains.rider pkgs.dotnetCorePackages.sdk_8_0_3xx-bin ];
         };
 
@@ -56,7 +53,6 @@
       };
 
     };
-# unfree: https://stackoverflow.com/questions/77585228/how-to-allow-unfree-packages-in-nix-for-each-situation-nixos-nix-nix-wit
 }
 
 # C++
@@ -66,3 +62,4 @@
 
 # $ which cmake
 # /nix/store/5h0akwq4cwlc3yp92i84nfgcxpv5xv79-cmake-3.26.4/bin/cmake
+# unfree: https://stackoverflow.com/questions/77585228/how-to-allow-unfree-packages-in-nix-for-each-situation-nixos-nix-nix-wit
