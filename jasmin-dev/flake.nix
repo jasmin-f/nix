@@ -26,7 +26,7 @@
         uml = pkgs.mkShell {
           packages = with pkgs; [ 
             umlet
-            plantuml 
+            plantuml # server
           ];
         };
 

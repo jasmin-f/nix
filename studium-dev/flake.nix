@@ -35,10 +35,19 @@
         cplus = pkgs.mkShell {
           packages = with pkgs; [ 
             # C++ Compiler is already part of stdenv
-            #boost
-            #catch2
-            cmake #build
-            ninja # für performance?
+            #boost 
+            #catch2 # in cmakelist schon intergriert
+            cmake #build generator
+            ninja # build tool (ninja oder make nötig)
+            rocmPackages.clang
+            
+            # vs code extensions:
+              # - C/C++ (intellisense und mehr)
+              # - CMake Tools
+              # kein clangd!
+            # Ordner ~/wsl-code/ost_3_semester/cpl öffnen. 
+            # bei build mit "play button" auswählen wo ich arbeite.
+            # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
           ];
         };
 
@@ -49,6 +58,21 @@
             rocmPackages.llvm.clang-unwrapped # clang #C Compiler des LLVM-Projekts: apt install clang
           ];
         };
+
+
+
+        # Shell hook runs when entering the shell
+        # Use this for environment setup, variables, and welcome messages
+        shellHook = ''
+          echo "🚀 Hello world!"
+          echo ""
+        '';
+
+        # Environment variables
+        # These are set when the shell is active
+        PROJECT_NAME = "my-awesome-project";
+        NODE_ENV = "development";
+
 
       };
 
