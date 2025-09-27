@@ -9,16 +9,17 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { 
         inherit system;
-        config.allowUnfree = true;  # for webstorm
+        config.allowUnfree = true;  # for webstorm license
       };
 
     in
     {      
       
       devShells.${system} = rec {
-        # nix develop
+
+        # nix develop standard packages
         default = pkgs.mkShell {
-          packages = [ pkgs.nodejs pkgs.jetbrains.webstorm pkgs.firefox ];
+          packages = [  ];
         };
 
         # nix develop .#web (WE1)
@@ -49,6 +50,13 @@
             # bei build mit "play button" auswählen wo ich arbeite.
             # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
           ];
+          shellHook = ''
+            echo "🚀 C++ Umgebung gestartet!"
+            echo ""
+          '';
+          # Environment variables
+          FLAKE_ACTIVE = "ja";
+          # echo ${FLAKE_ACTIVE-nein}
         };
 
         # nix develop .#bsys1
@@ -59,31 +67,16 @@
           ];
         };
 
-
-
-        # Shell hook runs when entering the shell
-        # Use this for environment setup, variables, and welcome messages
-        shellHook = ''
-          echo "🚀 Hello world!"
-          echo ""
-        '';
-
-        # Environment variables
-        # These are set when the shell is active
-        PROJECT_NAME = "my-awesome-project";
-        NODE_ENV = "development";
+        # nix develop .uml
+        uml = pkgs.mkShell {
+          packages = with pkgs; [ 
+            umlet
+            plantuml # server
+          ];
+        };
 
 
       };
 
     };
 }
-
-# C++
-# https://nixcademy.com/posts/cpp-with-nix-in-2023-part-1-shell/
-# $ which c++
-# /nix/store/zlzz2z48s7ry0hkl55xiqp5a73b4mzrg-gcc-wrapper-12.3.0/bin/c++
-
-# $ which cmake
-# /nix/store/5h0akwq4cwlc3yp92i84nfgcxpv5xv79-cmake-3.26.4/bin/cmake
-# unfree: https://stackoverflow.com/questions/77585228/how-to-allow-unfree-packages-in-nix-for-each-situation-nixos-nix-nix-wit
