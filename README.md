@@ -101,15 +101,21 @@ Nix Sprache prüfen mit
 ### Weitere Commands (nix flake)
 
 ```Nix
-nix search (package suchen, nix search <flake> ..)  
-nix profile (package, geht nicht um compiler+installer zu installiern)  
-nix run (test ohne permanente installation)  
+nix search <> # package suchen, nix search <flake> ..
+
+# test ohne permanente installation
+nix run  
+
+# build kompiliert nicht immer neu, wenn vorhanden nimmt es das aus dem "Cache" 
 nix shell (packages..)  
 nix build  
-    nix build nixpkgs#hello  
-    build kompiliert nicht immer neu, wenn vorhanden nimmt es das aus dem Cache  
+nix build nixpkgs#hello  
+    
+# nix shell, nix run, nix build sind zum testen und daten können wieder weggehen (ad hoc). nix profile benutzen wenn es bleiben soll.
 nix profile  
-    nix shell, nix run, nix build sind zum testen und daten können wieder weggehen (ad hoc). nix profile benutzen wenn es bleiben soll.  
+nix profile list
+nix profile add nixpkgs#jetbrains.webstorm
+nix profile remove nixpkgs#jetbrains.webstorm
 ```
 
 <!-- hier -- nötig
@@ -252,7 +258,12 @@ Interessantes
 - https://starship.rs/guide/
 
 
+
 ## nix-direnv
+ 
+- https://nix.dev/guides/recipes/direnv.html
+- https://direnv.net/
+
 
 Damit nicht jedes Mal im Nix Ordner nix develop .#<> manuell aufgerufen werden und dann zum Projektordner gewechselt muss. 
 Direnv ruft automatisch Befehle im dazugehörigen Ordner auf, mit nix-direnv ist direnv für nix optimiert.
@@ -269,11 +280,25 @@ Die Datei .envrc im gewünschten Projektordner erstellen und diese Zeile schreib
     
     use flake /mnt/c/Users/jf/code/wsl/nix/#<devShell>
 
-
 <blockquote>
-💡 
-Die Warnung, dass es länger lädt, ignorieren (ausser es lädt wirklich zu lange). 
+💡
+Die Warnung, dass es länger lädt, ignorieren (ausser es lädt wirklich zu lange).
 </blockquote>
+
+### direnv allow
+Wenn aufgefordert ausführen.
+
+    direnv allow
+
+Oder permanent setzen in ~/.config/direnv/direnv.toml
+
+    [whitelist]
+    prefix = [ "~/wsl-code/ost_3_semester", "~/loremipsum" ]
+    
+<!-- ### direnv hook
+In dieser Datei den Befehl einfügen: ~/.bashrc  
+eval "$(direnv hook bash)"  -->
+
 
 #### nicht vergessen "Deinstallation"
 
@@ -310,6 +335,17 @@ in WSL mit nix:
     # oder so:
     code . --remote wsl+Ubuntu
 
+### Commands
+Werden später vielleicht in anderem Readme notiert.
+
+```Bash
+    echo $HOME/.config/nixpkgs/config.nix
+    echo $PATH
+    eval "$(direnv hook bash)"
+    eval "$(direnv hook bash)" && echo "Erfolgreich ausgeführt."
+    echo RESULT=$? 
+```
+    
 
 ### Datei ausführen
 
