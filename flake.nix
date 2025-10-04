@@ -22,14 +22,30 @@
           packages = [  ];
         };
 
-        # nix develop .#web (WE1)
-        web = pkgs.mkShell {
-          packages = [ pkgs.jetbrains.webstorm pkgs.firefox pkgs.nodejs ];
+        # nix develop .#web1 (WE1)
+        web1 = pkgs.mkShell {
+          packages = with pkgs; [ jetbrains.webstorm firefox nodejs ];
+
+          shellHook = ''
+            echo ""
+            echo "webstorm ."
+            echo ""
+          '';
         };
 
         # nix develop .#dotnet (.NET) 
         dotnet = pkgs.mkShell {
-          packages = [ pkgs.jetbrains.rider pkgs.dotnetCorePackages.sdk_8_0_3xx-bin ];
+          packages = with pkgs; [ 
+            jetbrains.rider 
+            dotnetCorePackages.sdk_8_0_3xx-bin 
+          ];
+
+          shellHook = ''
+            echo ""
+            echo "C#"
+            echo "rider ."
+            echo ""
+          '';
         };
 
         # nix develop .#cplus (C++)
@@ -47,14 +63,18 @@
               # - CMake Tools
               # kein clangd!
             # Ordner ~/wsl-code/ost_3_semester/cpl öffnen. 
+
             # bei build mit "play button" auswählen wo ich arbeite.
             # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
+
           ];
           shellHook = ''
+            echo ""
             echo "🚀 C++ Umgebung gestartet!"
+            echo "code ."
             echo ""
           '';
-          # Environment variables
+          # Environment variable für test
           FLAKE_ACTIVE = "ja";
           # echo ${FLAKE_ACTIVE-nein}
         };
@@ -63,15 +83,28 @@
         bsys1 = pkgs.mkShell {
           packages = with pkgs; [ 
             nasm
-            rocmPackages.llvm.clang-unwrapped # clang #C Compiler des LLVM-Projekts: apt install clang
+            rocmPackages.llvm.clang-unwrapped # clang, C Compiler des LLVM-Projekts: apt install clang
+          ];
+          shellHook = ''
+            echo ""
+            echo "Entwicklungsumgebung für Assembler, benutze VS Code."
+            echo ""
+          '';
+        };
+
+        # nix develop .#uml
+        uml = pkgs.mkShell {
+          packages = with pkgs; [ 
+            # umlet
+            plantuml # server
           ];
         };
 
-        # nix develop .uml
-        uml = pkgs.mkShell {
-          packages = with pkgs; [ 
-            umlet
-            plantuml # server
+        # nix develop .#obs
+        obs = pkgs.mkShell {
+          packages = with pkgs; [
+            # nicht kompatibel auf linux:
+            # obs-studio
           ];
         };
 
