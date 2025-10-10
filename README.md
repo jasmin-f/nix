@@ -335,17 +335,6 @@ in WSL mit nix:
     # oder so:
     code . --remote wsl+Ubuntu
 
-### Commands
-Werden später vielleicht in anderem Readme notiert.
-
-```Bash
-    echo $HOME/.config/nixpkgs/config.nix
-    echo $PATH
-    eval "$(direnv hook bash)"
-    eval "$(direnv hook bash)" && echo "Erfolgreich ausgeführt."
-    echo RESULT=$? 
-```
-    
 
 ### Datei ausführen
 
