@@ -83,11 +83,12 @@
         bsys1 = pkgs.mkShell {
           packages = with pkgs; [ 
             nasm
-            rocmPackages.llvm.clang-unwrapped # clang, C Compiler des LLVM-Projekts: apt install clang
+            clang # C Compiler des LLVM-Projekts
           ];
           shellHook = ''
             echo ""
-            echo "Entwicklungsumgebung für Assembler, benutze VS Code."
+            echo "Entwicklungsumgebung für Assembler"
+            echo "code ."
             echo ""
           '';
         };
@@ -107,6 +108,15 @@
             # obs-studio
           ];
         };
+
+        # Dateimanager 
+        filemanager = pkgs.mkShell {
+          packages = with pkgs; [
+            spacedrive
+            # im terminal? https://github.com/antonmedv/walk
+          ];
+        };
+
 
         # Portfolio Website
         firebase = pkgs.mkShell {
