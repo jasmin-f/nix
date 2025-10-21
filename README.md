@@ -253,6 +253,7 @@ Einrichtung Tutorials
 - https://discourse.nixos.org/t/first-time-user-where-should-i-create-my-nix-conf/39655
 - https://dev.to/arnu515/getting-started-with-nix-and-nix-flakes-mml
 - https://tech.aufomm.com/my-nix-journey-use-nix-with-ubuntu/
+- https://nix.dev/manual/nix/2.18/quick-start
 
 Interessantes 
 - https://starship.rs/guide/
@@ -268,21 +269,24 @@ Interessantes
 Damit nicht jedes Mal im Nix Ordner nix develop .#<> manuell aufgerufen werden und dann zum Projektordner gewechselt muss. 
 Direnv ruft automatisch Befehle im dazugehörigen Ordner auf, mit nix-direnv ist direnv für nix optimiert.
 
-Normales **direnv** installieren:
+<!-- Normales **direnv** installieren (nicht nötig)
 ```Bash
     sudo apt  install direnv  # version 2.32.1-2ubuntu0.24.04.3
     direnv --version
-```
+``` 
+TODO
+https://askubuntu.com/questions/187888/what-is-the-correct-way-to-completely-remove-an-application
+-->
 
-Installation von **nix-direnv** mit nix-homemanager (Link: https://github.com/jasmin-f/nix-home-manager)
+
+Installation von **nix-direnv** mit nix-home-manager ([Home-manager Notizen](https://github.com/jasmin-f/nix-home-manager))
 
 Die Datei .envrc im gewünschten Projektordner erstellen und diese Zeile schreiben (Ordner muss auf Nix Flake Ordner zeigen, #devShell anpassen)
     
     use flake /mnt/c/Users/jf/code/wsl/nix/#<devShell>
 
 <blockquote>
-💡
-Die Warnung, dass es länger lädt, ignorieren (ausser es lädt wirklich zu lange).
+💡 Die Warnung, dass es länger lädt, ignorieren (ausser es lädt wirklich zu lange).
 </blockquote>
 
 ### direnv allow
@@ -301,12 +305,40 @@ eval "$(direnv hook bash)"  -->
 
 
 #### nicht vergessen "Deinstallation"
-
 Nix-direnv verhindert "Garbage Collection" von Nix, was machen wenn Dev Environment wahrscheinlich nicht mehr benötigt wird? (muss noch getestet werden)
 - .direnv Ordner löschen und manuell Garbage Collection starten
 - nix-collect-garbage --delete-old --dry-run --delete-older-than 30d
 
 
+## Nix ohne Flakes
+Packages die nützlich sind kann man auch ohne Flake benutzen. Wenn Packages selten oder zum Testen benötigt werden sehr praktisch.
+So muss keine Flake (mit flake.nix) Datei angepasst werden.
+
+### Nix Package Testen (empfohlen)
+    nix-shell --packages <Packetname>
+    nix-shell -p <Packetname>
+
+### Nix Package Installieren
+    nix-env --install --attr nixpkgs.<Packetname>
+
+
+### Nix Package Deinstallieren
+    nix-env --uninstall <Packetname>
+
+### Updaten
+Updated alle installierten Packages (auch die von flake?)
+    nix-channel --update nixpkgs
+    nix-env --upgrade '*'
+
+Rückgängig (1 nix-env command)
+    nix-env --rollback
+
+### Garbage Collector
+    nix-collect-garbage --delete-old
+
+### Packages
+- ruby_3_4 (gem Umgebungsvariable)
+- obsidian
 
 ## TODO
 - Wie Internetzugang sperren? 

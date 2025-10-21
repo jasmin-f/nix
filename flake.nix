@@ -84,6 +84,9 @@
           packages = with pkgs; [ 
             nasm
             clang # C Compiler des LLVM-Projekts
+
+            # damit clang -static funktioniert diese library einbinden:
+            glibc.static
           ];
           shellHook = ''
             echo ""
@@ -101,22 +104,17 @@
           ];
         };
 
-        # nix develop .#obs
-        obs = pkgs.mkShell {
+        # java for console
+        java = pkgs.mkShell {
           packages = with pkgs; [
-            # nicht kompatibel auf linux:
-            # obs-studio
+            jdk
+            maven
           ];
         };
 
-        # Dateimanager 
-        filemanager = pkgs.mkShell {
-          packages = with pkgs; [
-            spacedrive
-            # im terminal? https://github.com/antonmedv/walk
-          ];
-        };
-
+        # ----------------------- ----------------- -----
+        #    Privat
+        # ----------------------- ----------------- -----
 
         # Portfolio Website
         firebase = pkgs.mkShell {
@@ -124,7 +122,6 @@
             firebase-tools
           ];
         };
-
 
       };
 
