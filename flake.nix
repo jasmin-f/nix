@@ -24,7 +24,12 @@
 
         # nix develop .#web1 (WE1)
         web1 = pkgs.mkShell {
-          packages = with pkgs; [ jetbrains.webstorm firefox nodejs ];
+          packages = with pkgs; 
+          [ 
+            jetbrains.webstorm 
+            firefox 
+            nodejs 
+          ];
 
           shellHook = ''
             echo ""
@@ -74,9 +79,6 @@
             echo "code ."
             echo ""
           '';
-          # Environment variable für test
-          FLAKE_ACTIVE = "ja";
-          # echo ${FLAKE_ACTIVE-nein}
         };
 
         # nix develop .#bsys1
@@ -91,7 +93,7 @@
           shellHook = ''
             echo ""
             echo "Entwicklungsumgebung für Assembler"
-            echo "code ."
+            code .
             echo ""
           '';
         };
@@ -102,9 +104,16 @@
             # umlet
             plantuml # server
           ];
+          shellHook = ''
+            code .
+            echo ""
+            plantuml
+            echo ""
+          '';
         };
 
         # java for console
+        # nix develop .#java
         java = pkgs.mkShell {
           packages = with pkgs; [
             jdk
