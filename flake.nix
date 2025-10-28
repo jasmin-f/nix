@@ -121,6 +121,14 @@
           ];
         };
 
+        # Latex
+        # nix develop .#latex
+        latex = pkgs.mkShell {
+          packages = with pkgs; [
+            texlive.combined.scheme-medium
+          ];
+        };
+
         # ----------------------- ----------------- -----
         #    Privat
         # ----------------------- ----------------- -----
