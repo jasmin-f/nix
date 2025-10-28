@@ -29,6 +29,8 @@
             jetbrains.webstorm 
             firefox 
             nodejs 
+            google-chrome # google-chrome-stable
+            # ungoogled-chromium
           ];
 
           shellHook = ''
