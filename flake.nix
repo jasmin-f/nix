@@ -73,6 +73,7 @@
 
             # bei build mit "play button" auswählen wo ich arbeite.
             # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
+            # ctrl+shift+f5 um das ausgewählte target laufen zu lassen (wie mit dem play button) 
 
           ];
           shellHook = ''
@@ -89,14 +90,49 @@
             nasm
             clang # C Compiler des LLVM-Projekts
 
-            # damit clang -static funktioniert diese library einbinden:
-            glibc.static
+            # clang-manpages geht nicht
           ];
           shellHook = ''
-            echo ""
-            echo "Entwicklungsumgebung für Assembler"
-            code .
-            echo ""
+            printf '\nEntwicklungsumgebung für Assembler \n\n'
+          '';
+        };
+        
+
+
+        # TODO: man clang
+        # nix develop .#bsys1-manual
+        bsys1-manual = pkgs.mkShell {
+          packages = with pkgs; [ 
+            nasm
+
+            llvmPackages_21.libcxxClang
+            # clang-wrapper
+
+            # llvmPackages_21.clang-unwrapped
+
+            #llvmPackages_21.clang-manpages
+            # clang-manpages
+
+
+            clang-manpages
+          ];
+          shellHook = ''
+            printf '\nEntwicklungsumgebung für Assembler \n\n'
+          '';
+        };
+
+        # nix develop .#bsys1-static
+        bsys1-static = pkgs.mkShell {
+          packages = with pkgs; [ 
+            nasm
+            clang # C Compiler des LLVM-Projekts
+            # damit clang -static unterstützt wird, diese library einbinden. Jedoch circular dependency Problem bei printf von C Datei.
+            glibc.static
+
+          ];
+          shellHook = ''
+            printf '\nEntwicklungsumgebung für Assembler\n'
+            printf '-static unterstützt\n\n"
           '';
         };
 
@@ -127,7 +163,8 @@
         # nix develop .#latex
         latex = pkgs.mkShell {
           packages = with pkgs; [
-            texlive.combined.scheme-medium
+            # texlive.combined.scheme-medium
+            texlive.combined.scheme-small
           ];
         };
 
