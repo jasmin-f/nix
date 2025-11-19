@@ -26,17 +26,20 @@
         web1 = pkgs.mkShell {
           packages = with pkgs; 
           [ 
-            jetbrains.webstorm 
-            firefox 
-            nodejs 
-            google-chrome # google-chrome-stable
+            jetbrains.webstorm
+            firefox
+            nodejs
+            # google-chrome
+            # google-chrome-stable
             # ungoogled-chromium
           ];
-
           shellHook = ''
             echo ""
             echo "webstorm ."
             echo ""
+            # npm install <package>
+            export PATH="$PWD/node_modules/.bin/:$PATH"
+            export NPM_PACKAGES="$HOME/.npm-packages"
           '';
         };
 
