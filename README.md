@@ -64,15 +64,7 @@ Datei anpassen Beispiel
 
 ### dev environments
 
-Ich nutze Flake Nix mit Dev Environments
-
-<!-- mkshell
-im flake.nix zusätzlich devShells.${system} = .. schreiben
-    dann z.B. nodejs und python ergänzen
-    nix develop .#nodejs  aufrufen, dann node --version
-
-praktisch: default = pkgs.mkShell .. definieren, muss im rec stehen, default ist speziell definiert. -->
-
+Ich nutze Flake Nix mit Dev Environments.
 
 Gehe in den Ordner mit dieser flake.nix Datei und führe dort diese Befehle aus (Beispiel: cd /mnt/c/Users/jf/code/wsl/nix)
 
@@ -80,6 +72,9 @@ Gehe in den Ordner mit dieser flake.nix Datei und führe dort diese Befehle aus 
     nix develop .#flakeShell
     nix develop .#dotnet
     nix develop .#web1
+
+Praktischer mit [nix-direnv](#nix-direnv). Informationen zur [mkShell](#nix-shell-mit-mkshell).
+
 
 ## Flake schreiben
 
@@ -153,13 +148,59 @@ Das ist die Einschränkung von nix, es wird nicht empfohlen von Nix Herstellern.
     package mit versionsnummer (hash/nixpkgs reference) auswählen
     z.B. hier: https://www.nixhub.io/ https://lazamar.co.uk/nix-versions/
 
-<!-- ### custom packages
 
-{ lib, stdenv, fetchurl }
+## Nix Shell mit mkShell
 
-stdenv : standard library for nix builds
-mkDerivation (mk wegen mk für makefile <https://www.greasyguide.com/linux/run-makefile-windows/>)
-pname schreiben nicht name -->
+### Unterschied stdenv und mkShell
+[Dokumentation stdenv](https://nixos.org/manual/nixpkgs/stable/#sec-using-stdenv)
+[Dokumentation mkShell](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
+
+**mkShell** pkgs.mkShell is a specialized stdenv.mkDerivation that removes some repetition when using it with nix-shell (or nix develop).
+
+**stdenv** standard library for nix builds  
+mkDerivation (mk wegen mk für makefile)
+
+### Unterschied packages und buildInputs
+packages = nativeBuildInputs
+
+Standardmässig das "packages" Attribut benutzen.   
+
+> Bei stdenv werden die **dependencies von packages** im "buildInputs" Attribut definiert. 
+> " This attribute ensures that the bin subdirectories of these packages appear in the PATH environment variable during the build, that their include subdirectories are searched by the C compiler, and so on. (See the section called “Package setup hooks” for details.) " [Quelle](https://nixos.org/manual/nixpkgs/stable/#sec-using-stdenv:~:text=Many%20packages%20have%20dependencies%20that%20are%20not%20provided%20in%20the%20standard%20environment%2E%20It%E2%80%99s%20usually%20sufficient%20to%20specify%20those%20dependencies%20in%20the%20buildInputs%20attribute)
+
+
+Beispiel aus der Doku
+```nix
+stdenv.mkDerivation {
+  pname = "libfoo"; # pname schreiben statt name
+  version = "1.2.3";
+  # ...
+  buildInputs = [
+    libbar
+    perl
+    ncurses
+  ];
+}
+```
+
+Beispiel von meiner Shell mit mkShell
+```nix
+# nix develop .#dotnet (.NET) 
+dotnet = pkgs.mkShell {
+    packages = with pkgs; [ 
+    jetbrains.rider 
+    dotnetCorePackages.sdk_8_0_3xx-bin 
+    ];
+
+    shellHook = ''
+    echo ""
+    echo "C#"
+    echo "rider ."
+    echo ""
+    '';
+};
+```
+
 
 ## Nix Sprache
 
@@ -372,3 +413,4 @@ in WSL mit nix:
 
 Eine executable in wsl heisst nicht .exe sondern hat keine Endung
 ausführen mit: ./HelloWorld
+
