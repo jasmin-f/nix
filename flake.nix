@@ -48,6 +48,19 @@
           packages = with pkgs; [ 
             jetbrains.rider 
             dotnetCorePackages.sdk_8_0_3xx-bin 
+
+            # auf windows wechseln für C# .NET
+
+            # dotnetCorePackages.dotnet_8.sdk
+            # dotnetCorePackages.dotnet_9.sdk
+
+            # # dotnet-sdk-wrapped <- falsch
+
+            # # nugets:
+            # dotnetPackages.Nuget
+            # # grpc
+            # # grpc-tools
+            # # protobuf
           ];
 
           shellHook = ''
@@ -72,6 +85,7 @@
               # - C/C++ (intellisense und mehr)
               # - CMake Tools
               # kein clangd!
+              # intellisense von vscode deaktivieren, wegen Konflikt, keine Code-Vorschläge 
             # Ordner ~/wsl-code/ost_3_semester/cpl öffnen. 
 
             # bei build mit "play button" auswählen wo ich arbeite.
@@ -92,7 +106,6 @@
           packages = with pkgs; [ 
             nasm
             clang # C Compiler des LLVM-Projekts
-
             # clang-manpages geht nicht
           ];
           shellHook = ''
@@ -115,7 +128,6 @@
 
             #llvmPackages_21.clang-manpages
             # clang-manpages
-
 
             clang-manpages
           ];
