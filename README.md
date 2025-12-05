@@ -81,9 +81,12 @@ Praktischer mit [nix-direnv](#nix-direnv). Informationen zur [mkShell](#nix-shel
 flake.nix beim 1. Mal generieren (oder von hier kopieren) 
 
     nix flake new <name vom flake>
+    
 oder erstelle flake mit default settings:
 
     nix flake init
+    
+    nix flake init --template github:omega-800/devshell-templates#<template>
     nix flake init -t github:hercules-ci/flake-parts
 
 - flake.lock wird automatisch erstellt
