@@ -83,6 +83,7 @@ flake.nix beim 1. Mal generieren (oder von hier kopieren)
     nix flake new <name vom flake>
 oder erstelle flake mit default settings:
 
+    nix flake init
     nix flake init -t github:hercules-ci/flake-parts
 
 - flake.lock wird automatisch erstellt
@@ -278,6 +279,10 @@ library / framework : library you call and framework calls you. die definierte "
 
 ## Links
 
+Beispiel Flakes
+- https://github.com/omega-800/devshell-templates
+
+
 - https://noogle.dev/
 - https://www.youtube.com/results?search_query=librephoenix
 
@@ -285,8 +290,6 @@ Dokumentation
 - https://nixos.org/
 - https://nix.dev/
 
-Infos 
-- https://github.com/colemickens/nixos-flake-example
 
 Einrichtung Tutorials
 - https://www.kunxi.org/blog/2020/11/nix-on-wsl/
