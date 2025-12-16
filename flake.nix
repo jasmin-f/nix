@@ -47,26 +47,13 @@
         dotnet = pkgs.mkShell {
           packages = with pkgs; [ 
             jetbrains.rider 
-            dotnetCorePackages.sdk_8_0_3xx-bin 
-
-            # auf windows wechseln für C# .NET
-
-            # dotnetCorePackages.dotnet_8.sdk
-            # dotnetCorePackages.dotnet_9.sdk
-
-            # # dotnet-sdk-wrapped <- falsch
-
-            # # nugets:
-            # dotnetPackages.Nuget
-            # # grpc
-            # # grpc-tools
-            # # protobuf
+            dotnetCorePackages.sdk_8_0_3xx-bin
           ];
 
           shellHook = ''
             echo ""
-            echo "C#"
-            echo "rider ."
+            echo "hier nur .NET für eine einfache Benuztung"
+            echo "starte .NET auf Windows und entferne die direnv Datei."
             echo ""
           '';
         };
@@ -74,25 +61,26 @@
         # nix develop .#cplus (C++)
         cplus = pkgs.mkShell {
           packages = with pkgs; [ 
+            (openssl.override { static = true; })
             # C++ Compiler is already part of stdenv
             #boost 
             #catch2 # in cmakelist schon intergriert
             cmake #build generator
             ninja # build tool (ninja oder make nötig)
             rocmPackages.clang
-            
-            # vs code extensions:
-              # - C/C++ (intellisense und mehr)
-              # - CMake Tools
-              # kein clangd!
-              # intellisense von vscode deaktivieren, wegen Konflikt, keine Code-Vorschläge 
-            # Ordner ~/wsl-code/ost_3_semester/cpl öffnen. 
-
-            # bei build mit "play button" auswählen wo ich arbeite.
-            # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
-            # ctrl+shift+f5 um das ausgewählte target laufen zu lassen (wie mit dem play button) 
-
           ];
+            
+          # vs code extensions:
+            # - C/C++ (intellisense und mehr)
+            # - CMake Tools
+            # kein clangd!
+            # intellisense von vscode deaktivieren, wegen Konflikt, keine Code-Vorschläge 
+          # Ordner ~/wsl-code/ost_3_semester/cpl öffnen. 
+
+          # bei build mit "play button" auswählen wo ich arbeite.
+          # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
+          # ctrl+shift+f5 um das ausgewählte target laufen zu lassen (wie mit dem play button) 
+          
           shellHook = ''
             echo ""
             echo "🚀 C++ Umgebung gestartet!"

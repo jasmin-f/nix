@@ -23,8 +23,8 @@ Java und IntelliJ benutze ich auf Windows, das Nix ist auf wsl.
 
 - [TODOs (für mich)](#todo)
 
-## Nix installieren und einrichten
 
+## Nix installieren und einrichten
 
 1. WSL Terminal öffnen (wenn auf Windows mit WSL)
 2.  curl -L https://nixos.org/nix/install | sh
@@ -37,8 +37,18 @@ Updaten: https://nix.dev/manual/nix/2.18/installation/upgrading
 Alternativer Download (Multiuser wird empfohlen) : [nixos.org/download](https://nixos.org/download/)
 
 ###  Nach Installation flakes aktivieren
-<!-- (und Github token?) -->
 
+#### Variante 1 : einfach
+
+```bash
+
+mkdir -p /etc/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+```
+<!-- mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf -->
+
+#### Variante 2 : ausführlich
 konfigurieren nach Installation:
 /etc/nix/nix.conf file   (auf wsl, nicht im windows. Wenn Ordner und Datei nicht vorhanden, sie selber erstellen!) 
     
@@ -52,11 +62,21 @@ experimental-features = nix-command flakes
 ```
 
 Datei anpassen Beispiel
+```bash
+sudo chown jf /etc/nix/nix.conf
+code /etc/nix/nix.conf
+--extra-experimental-features nix-command
+```
 
-    sudo chown jf /etc/nix/nix.conf
-    code /etc/nix/nix.conf
-    --extra-experimental-features nix-command
 
+#### Testen
+```bash
+nix run nixpkgs#hello
+```
+
+🥳
+
+-----
 
 ## Nix Flakes
 
