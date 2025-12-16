@@ -48,7 +48,7 @@ echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 <!-- mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf -->
 
-#### Variante 2 : ausführlich
+#### Variante 2 : ausführlich (optional)
 konfigurieren nach Installation:
 /etc/nix/nix.conf file   (auf wsl, nicht im windows. Wenn Ordner und Datei nicht vorhanden, sie selber erstellen!) 
     
