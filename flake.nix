@@ -58,36 +58,39 @@
           '';
         };
 
-        # nix develop .#cplus (C++)
-        cplus = pkgs.mkShell {
-          packages = with pkgs; [ 
-            (openssl.override { static = true; })
-            # C++ Compiler is already part of stdenv
-            #boost 
-            #catch2 # in cmakelist schon intergriert
-            cmake #build generator
-            ninja # build tool (ninja oder make nötig)
-            rocmPackages.clang
-          ];
-            
-          # vs code extensions:
-            # - C/C++ (intellisense und mehr)
-            # - CMake Tools
-            # kein clangd!
-            # intellisense von vscode deaktivieren, wegen Konflikt, keine Code-Vorschläge 
-          # Ordner ~/wsl-code/ost_3_semester/cpl öffnen. 
 
-          # bei build mit "play button" auswählen wo ich arbeite.
-          # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
-          # ctrl+shift+f5 um das ausgewählte target laufen zu lassen (wie mit dem play button) 
+        # neu im c++ Projekt gemanaged 
+        # TODO: sobald fertig mit Projekt: nix dateien und vscode dateien hier kopieren für eine Vorlage
+        # # nix develop .#cplus (C++)
+        # cplus = pkgs.mkShell {
+        #   packages = with pkgs; [ 
+        #     (openssl.override { static = true; })
+        #     # C++ Compiler is already part of stdenv
+        #     #boost 
+        #     #catch2 # in cmakelist schon intergriert
+        #     cmake #build generator
+        #     ninja # build tool (ninja oder make nötig)
+        #     rocmPackages.clang
+        #   ];
+            
+        #   # vs code extensions:
+        #     # - C/C++ (intellisense und mehr)
+        #     # - CMake Tools
+        #     # kein clangd!
+        #     # intellisense von vscode deaktivieren, wegen Konflikt, keine Code-Vorschläge 
+        #   # Ordner ~/wsl-code/ost_3_semester/cpl öffnen. 
+
+        #   # bei build mit "play button" auswählen wo ich arbeite.
+        #   # Status Bar unten enthält viele Optionen, CMAKE Tools je nachdem aktivieren und deaktivieren
+        #   # ctrl+shift+f5 um das ausgewählte target laufen zu lassen (wie mit dem play button) 
           
-          shellHook = ''
-            echo ""
-            echo "🚀 C++ Umgebung gestartet!"
-            echo "code ."
-            echo ""
-          '';
-        };
+        #   shellHook = ''
+        #     echo ""
+        #     echo "🚀 C++ Umgebung gestartet!"
+        #     echo "code ."
+        #     echo ""
+        #   '';
+        # };
 
         # nix develop .#bsys1
         bsys1 = pkgs.mkShell {
@@ -163,11 +166,16 @@
         };
 
         # Latex
+        # weitere Latex Konfigurationen im SEP1 project Ordner
         # nix develop .#latex
         latex = pkgs.mkShell {
           packages = with pkgs; [
-            # texlive.combined.scheme-medium
+            # minimale Version mit latex pdf export funktion
             texlive.combined.scheme-small
+
+            # # für SEP1 mit latexmk command:
+            # latexrun
+            # texliveFull
           ];
         };
 
