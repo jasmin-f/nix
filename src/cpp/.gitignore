@@ -1,0 +1,92 @@
+# custom gitignores here
+
+
+
+# -----------------------------
+# Standard ignored files
+
+# optional
+workspace.xml
+*.code-workspace
+
+# flake profile Dateien
+*.rc
+.direnv
+
+# Programme
+.obsidian
+.idea
+
+
+# WSL
+*:Zone.Identifier
+
+# Ordner mit automatisch kompilierten Dateien
+/build
+/test
+archiv/*
+
+# Dateien die generiert werden
+.dll
+bin
+obj
+*.cache
+
+
+# CMake Build directory
+/build
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+**/build/
+**/.cache/
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Cevelop workspace defaults and project files
+# allow for workspace folder in week directories locally
+workspace/
+Debug
+Release
+.metadata/
+*Test.xml
+*exe.xml
+.*.html
+/**/.settings/*
+#!language.settings.xml
+
+
+# Mac OS Meta Files
+.DS_Store
+.Trashes
+
+# script zum konvertieren
+wiki2md.pl
+
+
+# compile commands für clangd
+compile_commands.json

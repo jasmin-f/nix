@@ -34,9 +34,6 @@ workspace.xml
 # WSL
 *:Zone.Identifier
 
-# secrets
-.env
-
 # Ordner mit automatisch kompilierten Dateien
 /build
 /test

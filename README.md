@@ -1,7 +1,7 @@
 # Nix Flakes
 
-Hier sind meine Nix Flakes gespeichert für verschiedene Entwicklungsumgebungen im Studium. 
 Java und IntelliJ benutze ich auf Windows, das Nix ist auf wsl.
+Hier sind meine Nix Informationen, Templates und mein .gitignore Template gespeichert.
 
 # Inhaltsverzeichnis
 
@@ -332,19 +332,20 @@ Interessantes
 - https://nix.dev/guides/recipes/direnv.html
 - https://direnv.net/
 
+### Ein Nix flake pro Projekt
+Damit beim wechseln in einen Ordner mit nix flake, automatisch das Development Environment gestartet wird, gibt es direnv. Die wichtige Konfigurationsdatei für direnv ist ".envrc".
 
+Installation von **nix-direnv** mit nix-home-manager ([Home-manager Notizen](https://github.com/jasmin-f/nix-home-manager))
+
+Der Projektordner von flake besitzt eine flake.nix Datei im root-Ordner, zusätzlich wird die .envrc Datei mit dem Inhalt `use flake` erstellen.
+
+<blockquote>
+💡 Die Warnung, dass es länger lädt, ignorieren (ausser es lädt wirklich zu lange).
+</blockquote>
+
+### Ein nix flake für alle Projekte (nicht empfohlen)
 Damit nicht jedes Mal im Nix Ordner nix develop .#<> manuell aufgerufen werden und dann zum Projektordner gewechselt muss. 
 Direnv ruft automatisch Befehle im dazugehörigen Ordner auf, mit nix-direnv ist direnv für nix optimiert.
-
-<!-- Normales **direnv** installieren (nicht nötig)
-```Bash
-    sudo apt  install direnv  # version 2.32.1-2ubuntu0.24.04.3
-    direnv --version
-``` 
-TODO
-https://askubuntu.com/questions/187888/what-is-the-correct-way-to-completely-remove-an-application
--->
-
 
 Installation von **nix-direnv** mit nix-home-manager ([Home-manager Notizen](https://github.com/jasmin-f/nix-home-manager))
 
@@ -366,10 +367,6 @@ Oder permanent setzen in ~/.config/direnv/direnv.toml
     [whitelist]
     prefix = [ "~/wsl-code/ost_3_semester", "~/loremipsum" ]
     
-<!-- ### direnv hook
-In dieser Datei den Befehl einfügen: ~/.bashrc  
-eval "$(direnv hook bash)"  -->
-
 
 #### nicht vergessen "Deinstallation"
 Nix-direnv verhindert "Garbage Collection" von Nix, was machen wenn Dev Environment wahrscheinlich nicht mehr benötigt wird? (muss noch getestet werden)
@@ -409,24 +406,7 @@ Rückgängig (1 nix-env command)
 
 ## TODO
 - Wie Internetzugang sperren? 
-- VS Code extensions auch einrichten mit nix flakes?
-
-## Weitere Infos
-
-### UML
-in WSL mit nix:
-
-    # .envrc: use flake /mnt/c/Users/jf/code/wsl/nix/#uml
-    # oder nix develop .#uml 
-
-    # Projektordner ist auf windows gespeichert
-    cd /mnt/c/Users/jf/code/studium/ost_3_semester/sep1/uml 
-    plantuml
-
-- Auf die gewünschte .puml Datei im plantuml viewer doppelklicken
-- vs code nebenbei öffnen (in windows oder wsl), die gleiche Datei bearbeiten
-- Tipp: die offizielle plantuml vscode extension nutzen für korrekten Syntax
-  
+- VS Code extensions auch einrichten mit nix flakes (wsl)?
 
 ### VS Code korrekt öffnen in wsl
 
@@ -440,3 +420,21 @@ in WSL mit nix:
 Eine executable in wsl heisst nicht .exe sondern hat keine Endung
 ausführen mit: ./HelloWorld
 
+### Nix Templates nutzen
+(gemacht für mein Setup mit WSL)
+
+TODO testen:
+So wird automatisch die flake.nix Datei im aktuellen Ordner erstellt:
+`nix flake init --template github:jasmin-f/nix/flake-templates#<projekt>`
+
+Weitere Templates:
+- https://github.com/omega-800/devshell-templates (flake.nix code für templates übernommen)
+- https://github.com/the-nix-way/dev-templates/tree/main
+
+
+Projekte mit Nix Flakes die hier nicht als Template verfügbar sind
+- SEP1 Project Automation
+
+Auf Windows installiert
+- typst mit VS Code Plugin
+- .NET mit Rider, weil die Version mit Rider auf Nix langsam war
