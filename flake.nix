@@ -10,6 +10,12 @@
       inherit (nixpkgs) lib;
       fs = lib.fileset;
       files = builtins.readDir ./src;
+      
+      # system = "x86_64-linux";
+      # pkgs = import nixpkgs { 
+      #   inherit system;
+      # };
+
     in
     {
       templates =

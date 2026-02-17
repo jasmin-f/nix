@@ -322,10 +322,8 @@ Einrichtung Tutorials
 - https://tech.aufomm.com/my-nix-journey-use-nix-with-ubuntu/
 - https://nix.dev/manual/nix/2.18/quick-start
 
-Interessantes 
-- https://starship.rs/guide/
-
-
+<!-- Interessantes 
+- https://starship.rs/guide/ -->
 
 ## nix-direnv
  
@@ -378,6 +376,8 @@ Nix-direnv verhindert "Garbage Collection" von Nix, was machen wenn Dev Environm
 Packages die nützlich sind kann man auch ohne Flake benutzen. Wenn Packages selten oder zum Testen benötigt werden sehr praktisch.
 So muss keine Flake (mit flake.nix) Datei angepasst werden.
 
+Beispiel von nix-shells im [direnv-nix-shell](/direnv-nix-shell/README.md) Ordner
+
 ### Nix Package Testen (empfohlen)
     nix-shell --packages <Packetname>
     nix-shell -p <Packetname>
@@ -424,17 +424,19 @@ ausführen mit: ./HelloWorld
 (gemacht für mein Setup mit WSL)
 
 TODO testen:
-So wird automatisch die flake.nix Datei im aktuellen Ordner erstellt:
+So wird automatisch die flake.nix Datei im aktuellen Ordner erstellt:\
 `nix flake init --template github:jasmin-f/nix/flake-templates#<projekt>`
 
 Weitere Templates:
 - https://github.com/omega-800/devshell-templates (flake.nix code für templates übernommen)
 - https://github.com/the-nix-way/dev-templates/tree/main
 
-
+<!-- 
+Zu unwichtige Notizen:\
 Projekte mit Nix Flakes die hier nicht als Template verfügbar sind
-- SEP1 Project Automation
+- SEP1 Project Automation 
 
 Auf Windows installiert
 - typst mit VS Code Plugin
 - .NET mit Rider, weil die Version mit Rider auf Nix langsam war
+-->

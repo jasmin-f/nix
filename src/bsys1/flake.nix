@@ -2,16 +2,33 @@
   description = "C + Assembler, normal und mit -static";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  outputs = { self, nixpkgs }: 
-  let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs { 
-      inherit system;
-    };
-  in
-  {      
-    devShells.${system} = rec {
-        # nix develop
+
+  # outputs = { self, nixpkgs } : 
+  outputs = { nixpkgs, ... } :
+    let
+      # systems = nixpkgs.lib.platforms.unix;
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      eachSystem =
+        f:
+        nixpkgs.lib.genAttrs systems (
+          system:
+          f (
+            import nixpkgs {
+              inherit system;
+              config = { };
+              overlays = [ ];
+            }
+          )
+        );
+  in {
+      devShells = eachSystem (pkgs: {
+        # mkShellNoCC statt mkShell "is simply an alias for nativeBuildInputs. produces such an environment, but without a compiler toolchain."" https://nix.dev/tutorials/first-steps/declarative-shell.html
+
         default = pkgs.mkShell {
           packages = with pkgs; [ 
             nasm
@@ -36,6 +53,8 @@
             printf '-static unterstützt\n\n"
           '';
         };
-    };
+
+      });
+
   };
 }
