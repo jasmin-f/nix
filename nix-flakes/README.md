@@ -1,7 +1,7 @@
 
 ### TODO: geht noch nicht
 
-Nutze diesen Befehl um ein Template einzurichten, wobei template mit dem Ordnername (hier in src) ersetzt wird.
+Nutze diesen Befehl um ein Template einzurichten, wobei template mit dem Ordnername (hier in nix-flakes) ersetzt wird.
 ```
 nix flake init --template github:jasmin-f/nix#<template>
 ```
