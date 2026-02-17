@@ -9,21 +9,21 @@
     let
       inherit (nixpkgs) lib;
       fs = lib.fileset;
-      files = builtins.readDir ./src;
+      files = builtins.readDir ./nix-flakes;
     in
     {
       templates =
         (lib.mapAttrs (n: _: {
           path = "${fs.toSource {
-            root = ./src/${n};
-            fileset = fs.fileFilter (f: !(f.hasExt "lock")) ./src/${n};
+            root = ./nix-flakes/${n};
+            fileset = fs.fileFilter (f: !(f.hasExt "lock")) ./nix-flakes/${n};
           }}";
           description = "${n} development environment";
         }) files)
         // lib.mapAttrs' (
           n: _:
           lib.nameValuePair "${n}-lock" {
-            path = ./src/${n};
+            path = ./nix-flakes/${n};
             description = "${n} development environment with flake.lock";
           }
         ) files;
