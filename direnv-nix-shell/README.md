@@ -1,0 +1,2 @@
+Wenn einzelne Nix Packages automatisch in einem Projektverzeichnis verfügbar sein sollen und die Funktionalitäten von nix flake nicht nötig sind -> Dann ein einfaches shell erstellen wie in diesem Beispiel.
+`shell.nix` `.envrc`
