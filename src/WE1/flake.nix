@@ -1,5 +1,5 @@
 {
-  description = "Dev Environment für Web Engineering 1";
+  description = "Dev Environment für Web Engineering 1 (mit Webstorms, natürlich kann auch VS Code genutzt werden)";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   outputs = { self, nixpkgs }: 

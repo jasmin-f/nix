@@ -1,6 +1,8 @@
 # custom gitignores here
 
-
+# kann nix shell git-ignorieren:
+.envrc
+shell.nix
 
 # -----------------------------
 # Standard ignored files
