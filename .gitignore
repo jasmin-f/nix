@@ -2,3 +2,6 @@ result
 .idea
 
 _jasmin-dev
+
+# fonts sind möglicherweise urheberrechtlich geschützt, ich nutze fira code
+*.ttf 

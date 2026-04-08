@@ -1,0 +1,67 @@
+# https://github.com/nix-community/nix-vscode-extensions
+# installiert vscodium editor mit angegebenen extensions
+# Browser: Installiere react dev tools https://react.dev/learn/react-developer-tools
+{
+  description = "vs codium für web2";
+
+  inputs = {
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.follows = "nix-vscode-extensions/nixpkgs";
+  };
+
+  outputs =
+    inputs:
+    inputs.flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+        };
+
+        inherit (pkgs) vscode-with-extensions vscodium;
+
+        packages.default = vscode-with-extensions.override {
+          vscode = vscodium;
+          vscodeExtensions = [
+            pkgs.vscode-marketplace.dbaeumer.vscode-eslint
+            pkgs.vscode-marketplace.esbenp.prettier-vscode
+            pkgs.vscode-marketplace.ritwickdey.liveserver
+          ];
+        };
+
+        devShells.default = pkgs.mkShell {
+          shellHook = ''
+            printf "Run VSCodium using one of the following commands:\n\n"
+            printf "nix run .# .\n\n"
+            printf "nix develop .#vscodium -c codium .\n\n"
+          '';
+        };
+
+        # In some projects, people may use the same default devShell,
+        # but different code editors.
+        #
+        # Then, it's better to provide `VSCodium`
+        # not in the default devShell.
+        devShells.vscodium = pkgs.mkShell {
+          packages = with pkgs; 
+          [ 
+            # nodejs
+          ];
+          buildInputs = [ packages.default ];
+          shellHook = ''
+            export DONT_PROMPT_WSL_INSTALL=set
+            printf "VSCodium with extensions:\n"
+            codium --list-extensions
+            printf "\ncodium .\n"
+          '';
+        };
+
+      in
+      {
+        inherit packages devShells;
+      }
+    );
+}
