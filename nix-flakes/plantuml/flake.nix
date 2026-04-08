@@ -18,7 +18,33 @@
           # mermaid-cli
         ];
         shellHook = ''
-          echo "plantuml oder mmdc"
+          echo "plantuml"
+          echo ""
+        '';
+      };
+      mermaid = pkgs.mkShell {
+        packages = with pkgs; [ 
+          mermaid-cli
+          nodemon # Server, Änderung an Datei nicht sofort sichtbar
+        ];
+        shellHook = ''
+          echo "Alternative: VS Code Extension"
+          echo "mmdc"
+          echo "nodemon -e mmd --exec \"mmdc -i input.mmd -o output.png\" "
+          echo ""
+        '';
+      };
+      graphviz = pkgs.mkShell {
+        packages = with pkgs; [ 
+          graphviz-nox # ohne GUI
+          nodemon # Server, Änderung an Datei nicht sofort sichtbar
+          # graphviz # infinite recursion error
+          # qgv # Interactive Qt graphViz display
+        ];
+        shellHook = ''
+          echo "Alternative: VS Code Extension"
+          echo "gvpr"
+          echo "nodemon -e dot --exec \"dot -Tsvg input.dot -o output.svg\""
           echo ""
         '';
       };
