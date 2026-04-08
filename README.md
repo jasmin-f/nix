@@ -233,55 +233,60 @@ Es gibt currying und hat einen speziellen Syntax. Aber types gibt es gar nicht, 
 
 
 Beispiel:
-    outputs  function of inputs… output = {..}: {packages.. = nixpkgs…};
-    nix build .#test (. = aktueller ordner)
+```nix
+outputs  function of inputs… output = {..}: {packages.. = nixpkgs…};
+nix build .#test (. = aktueller ordner)
+```
+
 
 Nix language <https://nix.dev/manual/nix/2.28/language/>
 
 ### "Typen" / Sprach Bausteine
-
 dictionary, key value attribute set <https://nix.dev/tutorials/nix-language.html#attribute-set>
 
-Zeilen mit ; beenden, mehrzeilig mit ''  .. \n .. \n .. ''
+Zeilen mit `;` beenden, mehrzeilig mit `''  .. \n .. \n .. ''`
 
-function mit : geschrieben, outputs = {self, nixpkgs }: { … };
+function mit `:` geschrieben, `outputs = {self, nixpkgs }: { … };`
 
-[1 2 3] // Liste mit Abstand
+```nix
+[1 2 3] # Liste mit Abstand
 
-{ lib, stdenv, fetchurl } // argumente mit komma
+{ lib, stdenv, fetchurl } # Argumente mit Komma
 
 {
   string = "hello";
   integer = 1;
-} // attribute set mit semikolon
+} # attribute set mit Semikolon
+```
 
 
-rec {} : steht für recursive, es ist ein recursives attribute set. Kann auch mit let in geschrieben werden. let definiert lokale Variable.
+`rec {}` : steht für recursive, es ist ein recursives attribute set. Kann auch mit let in geschrieben werden. let definiert lokale Variable.
 
 
-bei let die lokalen Variablen definieren und in in benutzen .   
+bei `let` die lokalen Variablen definieren und in `in` benutzen.   
 positional arguments : Reihenfolge von Argumenten relevant
 
+```nix
 let 
     sum = arg1: arg2: arg1 + arg2;
     add1 = sum 1;
 in
     add1 2  //mit semikolon?
+```
 
 
 
 ### Argument set
 
 geschweifte klammern weil es ein argument set ist
+```nix
 let 
     sum = {arg1, arg2 ? 2 }: arg1 + arg2;
 in
     sum {arg1 = 1; }
+```
 
-
-
-
-inputs.nixpkgs.url = ist ein verkettetes attribute set…
+`inputs.nixpkgs.url` = ist ein verkettetes attribute set
 
 ## Begriffe
 
@@ -297,7 +302,7 @@ substitutor : cache der build ersetzt wenn vorhanden
 
 library / framework : library you call and framework calls you. die definierte "Variable/attribute set" im outputs wird aufgeruft (also wie framework)
 
-/nix/store hat wichtige Dateien
+Unter /nix/store sind wichtige Dateien abgelegt
 
 ## Links
 
@@ -426,7 +431,10 @@ Im Ordner "nix-flakes" befinden sich meine Nix Flake Templates für verschiedene
 
 
 ### Fehlende Manpage hinzufügen
-Mein Lösungsweg mit dem Fallbeispiel von Clang für das bsys Flake.
+Die Manpage wird nicht immer automatisch mit dem Flake verfügbar gemacht.
+<!-- nicht so einfach, weil das ist systemlevel und deshalb kann das nicht die shell machen -->
+Hier ist mein Lösungsweg mit dem Fallbeispiel von Clang.
+
 
 flake starten und herausfinden welche Version von Package in Nutzung ist
 ```bash
@@ -462,7 +470,7 @@ export MANPATH="/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.
 oder mit escapen von `${` mithilfe von `''${` zum nix shellhook
 ```nix
 shellHook = ''
-	export MANPATH="/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/share/man/:''${MANPATH:-:}"
+    export MANPATH="/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/share/man/:''${MANPATH:-:}"
 '';
 ```
 
