@@ -4,6 +4,9 @@
 
 # -----------------------------
 # Standard ignored files
+# archive files
+*.zip
+*.tar
 
 # optional
 workspace.xml

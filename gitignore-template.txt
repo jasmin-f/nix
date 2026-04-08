@@ -5,6 +5,13 @@
 # -----------------------------
 # Standard ignored files
 
+# archive files
+*.zip
+*.tar
+# archive files
+*.zip
+*.tar
+
 # optional
 workspace.xml
 *.code-workspace
