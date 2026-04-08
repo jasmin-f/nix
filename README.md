@@ -419,23 +419,60 @@ Rückgängig (1 nix-env command)
 Eine executable in wsl heisst nicht .exe sondern hat keine Endung
 ausführen mit: ./HelloWorld
 
-### Nix Templates nutzen
+### Nix Flakes Templates 
 (gemacht für mein Setup mit WSL)
 
-TODO testen:
-So wird automatisch die flake.nix Datei im aktuellen Ordner erstellt:\
-`nix flake init --template github:jasmin-f/nix/flake-templates#<projekt>`
+Im Ordner "nix-flakes" befinden sich meine Nix Flake Templates für verschiedene isolierte Entwicklungsumgebungen. Im Readme in dem Ordner stehen weitere Informationen.
 
-Weitere Templates:
-- https://github.com/omega-800/devshell-templates (flake.nix code für templates übernommen)
-- https://github.com/the-nix-way/dev-templates/tree/main
 
-<!-- 
-Zu unwichtige Notizen:\
-Projekte mit Nix Flakes die hier nicht als Template verfügbar sind
-- SEP1 Project Automation 
+### Fehlende Manpage hinzufügen
+Mein Lösungsweg mit dem Fallbeispiel von Clang für das bsys Flake.
 
-Auf Windows installiert
-- typst mit VS Code Plugin
-- .NET mit Rider, weil die Version mit Rider auf Nix langsam war
--->
+flake starten und herausfinden welche Version von Package in Nutzung ist
+```bash
+nix develop
+clang -v
+# clang version 21.1.8
+```
+
+suche Pfad zu manpage von Package clang.
+Package Dateien finden:
+```
+ls /nix/store/*clang*/
+```
+
+ich habe dieses ausgewählt mit der korrekten Version
+```bash
+/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/
+
+# ich hatte auch dieses gefunden:
+# /nix/store/wi30i30p28sckk88dgcqh3v0n0nn3lkv-clang-manpages-19.1.7/
+```
+
+schaue das sich dort in etwa dieser Pfad befindet `man1/clang.1.gz`, hier war es erst im Unterordner `share/man/` drin
+```bash
+/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/share/man/man1/clang.1.gz
+```
+
+entferne `man1/clang..gz` vom pfad und ergänze es so zu den exports als bash command
+```bash
+export MANPATH="/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/share/man/:${MANPATH:-:}"
+```
+
+oder mit escapen von `${` mithilfe von `''${` zum nix shellhook
+```nix
+shellHook = ''
+	export MANPATH="/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/share/man/:''${MANPATH:-:}"
+'';
+```
+
+#### Nützliche Commands für Manpage in Nix
+manpage Pfade anzeigen
+```bash
+manpath
+```
+
+Unnötig aber interessant: manpage manuell entzippen und anschauen (ich habe die Datei zuerst in einen Testordner verschoben)
+```bash
+gunzip -d clang.1.gz
+```
