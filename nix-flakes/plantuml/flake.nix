@@ -15,9 +15,9 @@
         packages = with pkgs; [ 
           # umlet
           plantuml # server
-          # mermaid-cli
         ];
         shellHook = ''
+          echo ""
           echo "plantuml"
           echo ""
         '';
