@@ -1,6 +1,6 @@
 # Nix Flakes
 
-Java und IntelliJ benutze ich auf Windows, das Nix ist auf wsl.
+Java und IntelliJ (Jetbrains Programme) installiere ich auf Windows, das Nix ist auf wsl.
 Hier sind meine Nix Informationen, Templates und mein .gitignore Template gespeichert.
 
 # Inhaltsverzeichnis
@@ -49,7 +49,7 @@ echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf -->
 
 #### Variante 2 : ausführlich (optional)
 konfigurieren nach Installation:
-/etc/nix/nix.conf file   (auf wsl, nicht im windows. Wenn Ordner und Datei nicht vorhanden, sie selber erstellen!) 
+/etc/nix/nix.conf file   (auf wsl, nicht im windows. Wenn Ordner und Datei nicht vorhanden, diese selber erstellen!) 
     
 ```Shell
 cd /etc
