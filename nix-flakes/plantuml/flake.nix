@@ -1,5 +1,5 @@
 {
-  description = "Plantuml Dev Environment";
+  description = "Plantuml Diagramme erstellen mit Text (Alternative Mermaidjs oder Typst/pintorita)";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   outputs = { self, nixpkgs }: 
@@ -15,11 +15,10 @@
         packages = with pkgs; [ 
           # umlet
           plantuml # server
+          # mermaid-cli
         ];
         shellHook = ''
-          code .
-          echo ""
-          plantuml
+          echo "plantuml oder mmdc"
           echo ""
         '';
       };
