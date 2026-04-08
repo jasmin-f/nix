@@ -12,11 +12,10 @@
   {      
     devShells.${system} = rec {
       default = pkgs.mkShell {
-          packages = with pkgs; [
-            jdk
-            maven
-          ];
-        };
+        packages = with pkgs; [
+          jdk
+          maven
+        ];
       };
     };
   };
