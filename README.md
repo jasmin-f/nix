@@ -21,7 +21,6 @@ Hier sind meine Nix Informationen, Templates und mein .gitignore Template gespei
 
 - [Andere Informationen](#weitere-infos)
 
-- [TODOs (für mich)](#todo)
 
 
 ## Nix installieren und einrichten
@@ -404,9 +403,9 @@ Rückgängig (1 nix-env command)
 - ruby_3_4 (gem Umgebungsvariable)
 - obsidian
 
-## TODO
-- Wie Internetzugang sperren? 
-- VS Code extensions auch einrichten mit nix flakes (wsl)?
+<!-- ## TODO
+- Wie Internetzugang sperren? > apparmor oder network config
+- VS Code extensions auch einrichten mit nix flakes (wsl)? > recommended extensions json oder (nicht performant auf wsl) vscodium flake -->
 
 ### VS Code korrekt öffnen in wsl
 
