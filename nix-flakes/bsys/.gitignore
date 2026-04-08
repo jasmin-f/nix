@@ -1,12 +1,11 @@
 # custom gitignores here
 
 
+*.tar.gz
+*.zip
 
 # -----------------------------
 # Standard ignored files
-# archive files
-*.zip
-*.tar
 
 # optional
 workspace.xml
