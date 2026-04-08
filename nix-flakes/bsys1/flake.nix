@@ -1,5 +1,5 @@
 {
-  description = "C + Assembler, normal und mit -static";
+  description = "C und Assembler, normal und mit -static";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   outputs = { self, nixpkgs }: 
@@ -16,6 +16,7 @@
           packages = with pkgs; [ 
             nasm
             clang
+            gdb
           ];
           shellHook = ''
             printf '\nEntwicklungsumgebung für Assembler \n\n'
