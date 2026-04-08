@@ -39,7 +39,7 @@ Alternativer Download (Multiuser wird empfohlen) : [nixos.org/download](https://
 
 #### Variante 1 : einfach
 
-```bash
+```shell
 
 mkdir -p /etc/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
@@ -61,7 +61,7 @@ experimental-features = nix-command flakes
 ```
 
 Datei anpassen Beispiel
-```bash
+```shell
 sudo chown jf /etc/nix/nix.conf
 code /etc/nix/nix.conf
 --extra-experimental-features nix-command
@@ -69,7 +69,7 @@ code /etc/nix/nix.conf
 
 
 #### Testen
-```bash
+```shell
 nix run nixpkgs#hello
 ```
 
@@ -437,7 +437,7 @@ Hier ist mein Lösungsweg mit dem Fallbeispiel von Clang.
 
 
 flake starten und herausfinden welche Version von Package in Nutzung ist
-```bash
+```shell
 nix develop
 clang -v
 # clang version 21.1.8
@@ -450,7 +450,7 @@ ls /nix/store/*clang*/
 ```
 
 ich habe dieses ausgewählt mit der korrekten Version
-```bash
+```shell
 /nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/
 
 # ich hatte auch dieses gefunden:
@@ -458,12 +458,12 @@ ich habe dieses ausgewählt mit der korrekten Version
 ```
 
 schaue das sich dort in etwa dieser Pfad befindet `man1/clang.1.gz`, hier war es erst im Unterordner `share/man/` drin
-```bash
+```shell
 /nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/share/man/man1/clang.1.gz
 ```
 
 entferne `man1/clang..gz` vom pfad und ergänze es so zu den exports als bash command
-```bash
+```shell
 export MANPATH="/nix/store/lqdpgi6zs1wvc4490cpw8nbj34n5wv4h-clang-manpages-21.1.0/share/man/:${MANPATH:-:}"
 ```
 
@@ -476,11 +476,11 @@ shellHook = ''
 
 #### Nützliche Commands für Manpage in Nix
 manpage Pfade anzeigen
-```bash
+```shell
 manpath
 ```
 
 Unnötig aber interessant: manpage manuell entzippen und anschauen (ich habe die Datei zuerst in einen Testordner verschoben)
-```bash
+```shell
 gunzip -d clang.1.gz
 ```
