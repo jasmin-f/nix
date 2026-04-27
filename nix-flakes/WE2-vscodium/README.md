@@ -4,6 +4,12 @@ Damit kann ich die extensions mit flake installieren.
 
 **aktuell nicht in Benutzung** weil es sich zeitlich (performance auf wsl) mehr lohnt die vscode extensions selber zu installieren und mit normalem VS code zu arbeiten :)  
 
+
+
+<!-- TODO self argument fehlt, dieses Problem: https://github.com/NixOS/nix/issues/5551  -->
+
+
+
 ### Extensions finden / testen ob vorhanden
 ```bash
 nix repl

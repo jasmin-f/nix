@@ -28,7 +28,7 @@
           vscodeExtensions = [
             pkgs.vscode-marketplace.dbaeumer.vscode-eslint
             pkgs.vscode-marketplace.esbenp.prettier-vscode
-            pkgs.vscode-marketplace.ritwickdey.liveserver
+            # pkgs.vscode-marketplace.ritwickdey.liveserver
           ];
         };
 
@@ -36,6 +36,7 @@
            packages = with pkgs; 
           [ 
             # nodejs
+            # nodejs_24
           ];
           shellHook = ''
             # printf "Run VSCodium using one of the following commands:\n\n"
